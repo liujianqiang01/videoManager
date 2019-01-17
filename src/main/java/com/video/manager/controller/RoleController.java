@@ -1,10 +1,7 @@
 package com.video.manager.controller;
 
 import com.google.gson.Gson;
-import com.video.manager.model.AdminUser;
-import com.video.manager.model.Menu;
-import com.video.manager.model.Role;
-import com.video.manager.model.WebResult;
+import com.video.manager.model.*;
 import com.video.manager.service.RoleMenuService;
 import com.video.manager.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +43,7 @@ public class RoleController {
         List<Role> roles = roleService.select(page,pageSize,query);
         map.put("roles",roles);
         int count = roleService.selectCount(query);
-        map.put("count",count);
-        map.put("maxPage",count/10);
-        map.put("page",page);
-        map.put("pageSize",pageSize);
-        map.put("query",query);
-        map.put("nowBegin",pageSize * (page - 1 )+1);
-        map.put("nowEnd",pageSize * (page - 1 )+roles.size());
+        BasePage.page(page,pageSize,count,roles.size(),map);
         return "/role/index";
     }
 

@@ -1,11 +1,19 @@
 package com.video.manager.model;
 
+import lombok.Data;
+import lombok.ToString;
+
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Data
+@ToString
 public class TOrder implements Serializable {
      //主键Id
+     @Id
     private Integer id;
 
      //订单编码
@@ -38,169 +46,24 @@ public class TOrder implements Serializable {
      //三方订单
     private String thirdOederCode;
     //vip开始时间
+    @Transient
     private String vipStartDate;
 
     //vip结束时间
+    @Transient
     private String vipEndDate;
 
     //第三方预支付id
     private String prepayId;
 
     //卡名称
+    @Transient
     private String vipName;
 
     //是否展示激活码
+    @Transient
     private boolean showVipCode = false;
 
-    public boolean isShowVipCode() {
-        return showVipCode;
-    }
+    private Integer settleAccountState;
 
-    public void setShowVipCode(boolean showVipCode) {
-        this.showVipCode = showVipCode;
-    }
-
-    private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getOrderCode() {
-        return orderCode;
-    }
-
-    public void setOrderCode(String orderCode) {
-        this.orderCode = orderCode == null ? null : orderCode.trim();
-    }
-
-    public Integer getOrderState() {
-        return orderState;
-    }
-
-    public void setOrderState(Integer orderState) {
-        this.orderState = orderState;
-    }
-
-    public BigDecimal getOrderPrice() {
-        return orderPrice;
-    }
-
-    public void setOrderPrice(BigDecimal orderPrice) {
-        this.orderPrice = orderPrice;
-    }
-
-    public String getMerchantId() {
-        return merchantId;
-    }
-
-    public void setMerchantId(String merchantId) {
-        this.merchantId = merchantId == null ? null : merchantId.trim();
-    }
-
-    public String getOpenId() {
-        return openId;
-    }
-
-    public void setOpenId(String openId) {
-        this.openId = openId == null ? null : openId.trim();
-    }
-
-    public String getVipCode() {
-        return vipCode;
-    }
-
-    public void setVipCode(String vipCode) {
-        this.vipCode = vipCode == null ? null : vipCode.trim();
-    }
-
-    public Integer getVipState() {
-        return vipState;
-    }
-
-    public void setVipState(Integer vipState) {
-        this.vipState = vipState;
-    }
-
-    public Date getVipStartTime() {
-        return vipStartTime;
-    }
-
-    public void setVipStartTime(Date vipStartTime) {
-        this.vipStartTime = vipStartTime;
-    }
-
-    public Date getVipEndTime() {
-        return vipEndTime;
-    }
-
-    public void setVipEndTime(Date vipEndTime) {
-        this.vipEndTime = vipEndTime;
-    }
-
-    public String getThirdOederCode() {
-        return thirdOederCode;
-    }
-
-    public void setThirdOederCode(String thirdOederCode) {
-        this.thirdOederCode = thirdOederCode == null ? null : thirdOederCode.trim();
-    }
-
-    public String getVipStartDate() {
-        return vipStartDate;
-    }
-
-    public void setVipStartDate(String vipStartDate) {
-        this.vipStartDate = vipStartDate;
-    }
-
-    public String getPrepayId() {
-        return prepayId;
-    }
-
-    public void setPrepayId(String prepayId) {
-        this.prepayId = prepayId;
-    }
-
-    public String getVipEndDate() {
-        return vipEndDate;
-    }
-
-    public void setVipEndDate(String vipEndDate) {
-        this.vipEndDate = vipEndDate;
-    }
-
-    public String getVipName() {
-        return vipName;
-    }
-
-    public void setVipName(String vipName) {
-        this.vipName = vipName;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", orderCode=").append(orderCode);
-        sb.append(", orderState=").append(orderState);
-        sb.append(", orderPrice=").append(orderPrice);
-        sb.append(", merchantId=").append(merchantId);
-        sb.append(", openId=").append(openId);
-        sb.append(", vipCode=").append(vipCode);
-        sb.append(", vipState=").append(vipState);
-        sb.append(", vipStartTime=").append(vipStartTime);
-        sb.append(", vipEndTime=").append(vipEndTime);
-        sb.append(", thirdOederCode=").append(thirdOederCode);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

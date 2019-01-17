@@ -1,6 +1,7 @@
 package com.video.manager.controller;
 
 import com.video.manager.model.AdminUser;
+import com.video.manager.model.BasePage;
 import com.video.manager.model.WebResult;
 import com.video.manager.service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,18 +33,13 @@ public class AdminUserController {
      * @return
      */
     @GetMapping
-    public String index(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10")int pageSize,
+    public String index(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10")Integer pageSize,
                         @RequestParam(defaultValue = "")String query, ModelMap map){
+
         List<AdminUser> users = userService.select(page,pageSize,query);
         map.put("users",users);
         int count = userService.selectCount(query);
-        map.put("count",count);
-        map.put("maxPage",count/10);
-        map.put("page",page);
-        map.put("pageSize",pageSize);
-        map.put("query",query);
-        map.put("nowBegin",pageSize * (page - 1 )+1);
-        map.put("nowEnd",pageSize * (page - 1 )+users.size());
+        BasePage.page(page,pageSize,count,users.size(),map);
         return "user/index";
     }
 

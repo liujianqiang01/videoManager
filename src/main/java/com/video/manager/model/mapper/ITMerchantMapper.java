@@ -2,10 +2,11 @@ package com.video.manager.model.mapper;
 
 
 import com.video.manager.model.TMerchant;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-public interface ITMerchantMapper {
+public interface ITMerchantMapper extends Mapper<TMerchant> {
     /**
     *批量新增
     */

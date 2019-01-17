@@ -9,5 +9,5 @@ import com.video.manager.model.TOrder;
  * @Description:
  */
 public interface OrderService {
-    public PageInfo<TOrder> getOrder(TOrder order,int page,int pageSize);
+    PageInfo<TOrder> getOrder(TOrder order,int page,int pageSize);
 }

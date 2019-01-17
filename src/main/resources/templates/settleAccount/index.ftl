@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <title>订单管理</title>
+    <title>收益管理</title>
 
     <meta name="description" content="Static &amp; Dynamic Tables" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -55,7 +55,7 @@
     <div class="page-content">
         <div class="col-xs-12">
             <div class="table-header" style="margin-top: 10px;">
-                订单列表
+                收益列表
             </div>
 
             <!-- div.table-responsive -->
@@ -63,7 +63,7 @@
             <!-- div.dataTables_borderWrap -->
             <div>
                 <div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline no-footer">
-                    <form method="get" action="/admin/order" id="orderform">
+                    <form method="get" action="/admin/settleAccount" id="settleAccountform">
                     <div class="row">
                         <div class="col-xs-10">
                             <div class="dataTables_length" id="dynamic-table_length">
@@ -72,25 +72,13 @@
                                     <option <#if pageSize==25>selected</#if> value="25">25</option>
                                     <option <#if pageSize==50>selected</#if> value="50">50</option>
                                     <option <#if pageSize==100>selected</#if> value="100">100</option></select> 条</label>
-                                <label>订单编号:
-                                    <input type="search" name="orderCode" value="${orderCode!}" class="form-control input-sm" placeholder="" aria-controls="dynamic-table"></label>
-                                <label>商户Id:
-                                    <input type="search" name="merchantId" value="${merchantId!}" class="form-control input-sm" placeholder="" aria-controls="dynamic-table"></label>
-                                <label>订单状态: <select name="orderState" ">
-                                        <option <#if (orderState!0)==0>selected</#if> value="">全部</option>
-                                        <option <#if (orderState!0)==1>selected</#if> value="1">待支付</option>
-                                        <option <#if (orderState!0)==2>selected</#if> value="2">已支付</option>
-                                        <option <#if (orderState!0)==3>selected</#if> value="3">支付成功</option>
-                                        <option <#if (orderState!0)==4>selected</#if> value="4">支付失败</option></select></label>
-                                <label>vip状态: <select name="vipState" >
-                                        <option <#if (vipState!2)==2>selected</#if> value="">全部</option>
-                                        <option <#if (vipState!2)==0>selected</#if> value="0">失效</option>
-                                        <option <#if (vipState!2)==1>selected</#if> value="1">有效</option>
-                                        </select></label>
-                                <label>结算状态: <select name="settleAccountState" >
-                                        <option <#if (settleAccountState!2)==2>selected</#if> value="">全部</option>
-                                        <option <#if (settleAccountState!2)==0>selected</#if> value="0">未结算</option>
-                                        <option <#if (settleAccountState!2)==1>selected</#if> value="1">已结算</option></select></label>
+                                 <label>商户Id:
+                                    <input type="search" name="menchantId" value="${menchantId!}" class="form-control input-sm" placeholder="" aria-controls="dynamic-table"></label>
+                                <label>汇款状态: <select name="remittanceState" >
+                                        <option <#if (remittanceState!2)==2>selected</#if> value="">全部</option>
+                                        <option <#if (remittanceState!2)==0>selected</#if> value="0">未汇款</option>
+                                        <option <#if (remittanceState!2)==1>selected</#if> value="1">已汇款</option>
+                                    </select></label>
                             </div>
                         </div>
                         <div>
@@ -110,17 +98,14 @@
                                 </label>
                             </th>
                             <th class="sorting_disabled" tabindex="0" rowspan="1" colspan="1" >ID</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1">订单编号</th>
-                            <th class="sorting_disabled" tabindex="0" rowspan="1" colspan="1">订单状态</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >订单金额</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >商户ID</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >用户ID</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >vip激活码</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >vip状态</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >vip开始时间</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >vip结束时间</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >三方订单</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算状态</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算总金额</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >提成金额</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算开始时间</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算结束时间</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >分成比例</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >汇款状态</th>
+
                         </tr>
                         </thead>
 
@@ -137,33 +122,21 @@
                             <td>
                                 <a href="#">${list.id}</a>
                             </td>
-                            <td>${list.orderCode}</td>
-                            <td >
-                                <#if list.orderState==1>待支付</#if>
-                                <#if list.orderState==2>已支付</#if>
-                                <#if list.orderState==3>支付成功</#if>
-                                <#if list.orderState==4>支付失败</#if>
-                            </td>
-                            <td>${list.orderPrice!}</td>
                             <td>${list.merchantId!}</td>
-                            <td>${list.openId!}</td>
-                            <td>${list.vipCode!}</td>
-                            <td>
-                                <#if list.vipState==0>失效</#if>
-                                <#if list.vipState==1>有效</#if>
+                            <td>${list.settleAccountPrice!}</td>
+                            <td>${list.rate_price!}</td>
+                            <td class="hidden-480">
+                                ${list.settleAccountStartTime?string("yyyy-MM-dd HH:mm:ss")}
                             </td>
                             <td class="hidden-480">
-                                ${list.vipStartTime?string("yyyy-MM-dd HH:mm:ss")}
+                                ${list.settleAccountEndTime?string("yyyy-MM-dd HH:mm:ss")}
                             </td>
-                            <td class="hidden-480">
-                                ${list.vipEndTime?string("yyyy-MM-dd HH:mm:ss")}
-                            </td>
-                            <td>${list.thirdOederCode!}</td>
+
                             <td>
-                                <#if list.settleAccountState==0>失效</#if>
-                                <#if list.settleAccountState==1>有效</#if>
+                                <#if list.remittanceState==0>未汇款</#if>
+                                <#if list.remittanceState==1>已汇款</#if>
                             </td>
-                            </td>
+                            <td>${list.rate!}</td>
                         </tr>
                         </#list>
 
@@ -226,7 +199,7 @@
             }
         });
         $("select[name=pageSize]").change(function () {
-            $("#orderform").submit();
+            $("#settleAccountform").submit();
         });
         
         $("input[name=checkbox]").change(function () {
@@ -243,12 +216,12 @@
             }
         });
         new page({pageMain:"pagination",nowPage:${page!'1'},count:${count},pageSize:${pageSize!'10'},
-            url:"/admin/order",params:"?pageSize=${pageSize}&orderState=${orderState!}",pakey:"page"});
+            url:"/admin/settleAccountform",params:"?pageSize=${pageSize}",pakey:"page"});
 
     });
 
     function query() {
-        $("#orderform").submit();
+        $("#merchantform").submit();
     }
 </script>
 </body>

@@ -132,7 +132,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>videoManager</finalName>
+        <finalName>ROOT</finalName>
         <plugins>
            <!-- <plugin>
                 <groupId>org.mybatis.generator</groupId>
@@ -194,6 +194,14 @@
                     <compilerArguments>
                         <extdirs>libs</extdirs>
                     </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <!--热部署-->

@@ -5,7 +5,7 @@ spring:
   application:
     name: admin-managee
   datasource:
-    url: jdbc:mysql://47.105.90.172:3306/video?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    url: jdbc:mysql://172.31.173.199:3306/video?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     username: root
     password: 1q2w3e4r
     driver_class_namel: com.mysql.jdbc.Driver

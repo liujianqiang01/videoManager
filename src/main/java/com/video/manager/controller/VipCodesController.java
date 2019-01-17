@@ -2,9 +2,7 @@ package com.video.manager.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.video.manager.model.BasePage;
-import com.video.manager.model.TSettleAccount;
 import com.video.manager.model.TVipCodes;
-import com.video.manager.service.SettleAccoountService;
 import com.video.manager.service.VipCodesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

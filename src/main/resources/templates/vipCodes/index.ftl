@@ -41,6 +41,8 @@
     <script src="/assets/js/html5shiv.min.js"></script>
     <script src="/assets/js/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="/assets/css/fileinput.min.css" />
+    <script src="/assets/js/fileinput.min.js"></script>
 </head>
 
 <body class="no-skin">
@@ -65,7 +67,7 @@
                 <div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline no-footer">
                     <form method="get" action="/admin/vipCodes" id="vipCodesForm">
                     <div class="row">
-                        <div class="col-xs-10">
+                        <div class="col-xs-7">
                             <div class="dataTables_length" id="dynamic-table_length">
                                 <label>每页显示 <select name="pageSize" aria-controls="dynamic-table" class="form-control input-sm">
                                     <option <#if pageSize==10>selected</#if>  value="10">10</option>
@@ -93,6 +95,7 @@
                         </div>
                     </div>
                     </form>
+
                     <table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer" aria-describedby="dynamic-table_info">
                         <thead>
                         <tr role="row">
@@ -149,6 +152,12 @@
                         </div>
                         </div>
                     </div>
+                    <form method="post" action="/admin/vipCodes/upload" id="uploadVipCodesForm" enctype="multipart/form-data">
+                        <input id="excelFile" type="file"  name="file">
+                        <button class="btn btn-white btn-info btn-bold" onclick="upload()">
+                            导入
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -219,6 +228,10 @@
 
     function query() {
         $("#vipCodesForm").submit();
+    }
+
+    function upload() {
+        $("#uploadVipCodesForm").submit();
     }
 </script>
 </body>

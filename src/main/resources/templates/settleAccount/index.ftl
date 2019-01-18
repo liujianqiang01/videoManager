@@ -101,9 +101,7 @@
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >用户ID</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算总金额</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >提成金额</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算开始时间</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算结束时间</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >分成比例</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算时间</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >汇款状态</th>
 
                         </tr>
@@ -124,19 +122,15 @@
                             </td>
                             <td>${list.merchantId!}</td>
                             <td>${list.settleAccountPrice!}</td>
-                            <td>${list.rate_price!}</td>
-                            <td class="hidden-480">
-                                ${list.settleAccountStartTime?string("yyyy-MM-dd HH:mm:ss")}
-                            </td>
-                            <td class="hidden-480">
-                                ${list.settleAccountEndTime?string("yyyy-MM-dd HH:mm:ss")}
+                            <td>${list.ratePrice!}</td>
+                            <td>
+                                ${list.settleAccountTime?string("yyyy-MM-dd")}
                             </td>
 
                             <td>
                                 <#if list.remittanceState==0>未汇款</#if>
                                 <#if list.remittanceState==1>已汇款</#if>
                             </td>
-                            <td>${list.rate!}</td>
                         </tr>
                         </#list>
 

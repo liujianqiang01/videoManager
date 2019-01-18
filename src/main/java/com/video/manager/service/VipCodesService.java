@@ -10,5 +10,6 @@ import com.video.manager.model.TVipCodes;
  */
 public interface VipCodesService {
     PageInfo<TVipCodes> getVipCodes(TVipCodes vipCodes, int page, int pageSize);
+    void addVipCodes(TVipCodes vipCodes);
 
 }

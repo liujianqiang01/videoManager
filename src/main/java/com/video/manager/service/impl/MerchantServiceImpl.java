@@ -8,6 +8,8 @@ import com.video.manager.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author: liujianqiang
  * @Date: 2019-01-17
@@ -21,5 +23,15 @@ public class MerchantServiceImpl implements MerchantService {
     public PageInfo<TMerchant> getMerchant(TMerchant merchant, int page, int pageSize) {
         PageInfo<TMerchant> orderPageInfo = PageHelper.startPage(page, pageSize).setOrderBy("id desc").doSelectPageInfo(() -> merchantMapper.select(merchant));
         return orderPageInfo;
+    }
+
+    @Override
+    public List<TMerchant> select(TMerchant merchant) {
+        return merchantMapper.select(merchant);
+    }
+
+    @Override
+    public void addMerchant(TMerchant merchant) {
+        merchantMapper.insert(merchant);
     }
 }

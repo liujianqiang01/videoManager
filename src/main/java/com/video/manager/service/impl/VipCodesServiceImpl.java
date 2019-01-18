@@ -23,4 +23,9 @@ public class VipCodesServiceImpl implements VipCodesService {
         PageInfo<TVipCodes> orderPageInfo = PageHelper.startPage(page, pageSize).setOrderBy("id desc").doSelectPageInfo(() -> codesMapper.select(vipCodes));
         return orderPageInfo;
     }
+
+    @Override
+    public void addVipCodes(TVipCodes vipCodes) {
+        codesMapper.insert(vipCodes);
+    }
 }

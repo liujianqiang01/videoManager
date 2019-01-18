@@ -35,7 +35,12 @@ public class SettleAccountController {
     @ResponseBody
     public WebResult grant(int id){
         log.info("发放收益 id = "+id);
-        boolean grant = settleAccoountService.grant(id);
+        boolean grant =false;
+        try {
+            grant = settleAccoountService.grant(id);
+        }catch (Exception e){
+            log.error(e);
+        }
         if(grant){
             return WebResult.success();
         }else{

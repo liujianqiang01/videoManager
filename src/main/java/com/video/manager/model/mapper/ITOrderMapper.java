@@ -10,10 +10,12 @@ import java.util.Date;
 
 public interface ITOrderMapper extends Mapper<TOrder> {
 
-    @Select({"SELECT SUM(order_price) as orderPrice FROM t_order WHERE merchant_id = #{merchantId} and order_state = 3 and vip_start_time < #{date}"})
+    @Select({"SELECT SUM(order_price) as orderPrice FROM t_order WHERE merchant_id = #{merchantId} and order_state = 3 " +
+            "and vip_start_time < #{date} and settle_account_state = 0"})
     BigDecimal selectSumOrderPriceByName(@Param("date") Date date , @Param("merchantId") String merchantId);
 
-    @Update({"update t_order set settle_account_state = 1 WHERE merchant_id = #{merchantId} and order_state = 3 and vip_start_time < #{date}"})
+    @Update({"update t_order set settle_account_state = 1 WHERE merchant_id = #{merchantId} and order_state = 3 " +
+            "and vip_start_time < #{date} and settle_account_state = 0"})
     void updateSumOrderPriceByName(@Param("date") Date date , @Param("merchantId") String merchantId);
 
 

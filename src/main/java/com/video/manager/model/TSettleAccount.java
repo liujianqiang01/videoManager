@@ -3,6 +3,7 @@ package com.video.manager.model;
 import lombok.Data;
 import lombok.ToString;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,6 +15,7 @@ public class TSettleAccount implements Serializable {
      * 主键
      * 表字段 : t_settle_account.id
      */
+    @Id
     private Integer id;
 
     /**

@@ -14,4 +14,5 @@ import java.util.Date;
 public interface SettleAccoountService {
     PageInfo<TSettleAccount> getSettleAccoount(TSettleAccount settleAccount, int page, int pageSize);
     void settleAccoountTask(Date date, String merchantId, BigDecimal rate);
+    boolean grant(int id);
 }

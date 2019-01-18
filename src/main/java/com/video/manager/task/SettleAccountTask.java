@@ -26,7 +26,7 @@ public class SettleAccountTask {
     SettleAccoountService settleAccoountService;
     @Autowired
     MerchantService merchantService;
-    @Scheduled(cron = "0 0/2 * * * ?")
+    @Scheduled(cron = "0 0/30 * * * ?")
     public void unPayTask(){
         log.info("------结算定时开始---start-");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

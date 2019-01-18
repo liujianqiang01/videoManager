@@ -103,6 +103,7 @@
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >提成金额</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算时间</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >汇款状态</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >操作</th>
 
                         </tr>
                         </thead>
@@ -130,6 +131,15 @@
                             <td>
                                 <#if list.remittanceState==0>未汇款</#if>
                                 <#if list.remittanceState==1>已汇款</#if>
+                            </td>
+                            <td>
+                                <#if list.remittanceState==0>
+                                    <div class="hidden-sm hidden-xs action-buttons">
+                                       <a class="green" onclick="grant(${list.id})">
+                                           发放
+                                       </a>
+                                    </div>
+                                </#if>
                             </td>
                         </tr>
                         </#list>
@@ -216,7 +226,47 @@
 
     function query() {
         $("#merchantform").submit();
-    }
+    };
+    /**
+     * 删除角色
+     */
+    function grant(id) {
+        bootbox.confirm({
+                message: "是否发放?",
+                buttons: {
+                    confirm: {
+                        label: "发放",
+                        className: "btn-sm",
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-sm btn-primary",
+                    }
+                },
+                callback: function(result) {
+                    if(result) {
+                        quickAjax({
+                            url: '/admin/settleAccount/grant',
+                            method:"POST",
+                            data:{
+                                id:id
+                            },
+                            success: function (response) {
+                                if (response.code == 1){
+                                    alert("发放成功",function(){
+                                        location.reload();
+                                    });
+                                }
+                                else {
+                                    alert(response.msg);
+                                }
+                            }
+                        });
+                    }
+                }
+            })
+    };
+
 </script>
 </body>
 </html>

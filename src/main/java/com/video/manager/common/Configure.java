@@ -12,6 +12,16 @@ public class Configure {
 
 	private static String spbill_create_ip = "47.105.90.172";
 
+	private static String mch_appid = "ww4ca72a98aa7c8bfd";//商户账号appid
+
+	public static String getMch_appid() {
+		return mch_appid;
+	}
+
+	public static void setMch_appid(String mch_appid) {
+		Configure.mch_appid = mch_appid;
+	}
+
 	public static String getSecret() {
 		return secret;
 	}

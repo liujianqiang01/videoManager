@@ -48,4 +48,6 @@ public class TSettleAccount implements Serializable {
      * 表字段 : t_settle_account.merchant_id
      */
     private String merchantId;
+
+    private String paymentNo;
 }

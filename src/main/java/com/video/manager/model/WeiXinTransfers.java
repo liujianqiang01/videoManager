@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class WeiXinTransfers implements Serializable {
     private String mch_appid;//商户账号appid
     private String mchid;//商户号
+    private String appid;//商户账号appid
     private String nonce_str;//随机字符串
     private String partner_trade_no;//商户订单号
     private String openid;//用户openid

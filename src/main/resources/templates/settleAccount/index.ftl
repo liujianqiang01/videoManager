@@ -75,9 +75,10 @@
                                  <label>商户Id:
                                     <input type="search" name="menchantId" value="${menchantId!}" class="form-control input-sm" placeholder="" aria-controls="dynamic-table"></label>
                                 <label>汇款状态: <select name="remittanceState" >
-                                        <option <#if (remittanceState!2)==2>selected</#if> value="">全部</option>
-                                        <option <#if (remittanceState!2)==0>selected</#if> value="0">未汇款</option>
-                                        <option <#if (remittanceState!2)==1>selected</#if> value="1">已汇款</option>
+                                        <option <#if (remittanceState!5)==5>selected</#if> value="">全部</option>
+                                        <option <#if (remittanceState!5)==0>selected</#if> value="0">未放款</option>
+                                        <option <#if (remittanceState!5)==1>selected</#if> value="1">已放款</option>
+                                        <option <#if (remittanceState!5)==2>selected</#if> value="2">放款失败</option>
                                     </select></label>
                             </div>
                         </div>
@@ -102,6 +103,7 @@
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算总金额</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >提成金额</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算时间</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >三方发放订单</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >汇款状态</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >操作</th>
 
@@ -127,13 +129,14 @@
                             <td>
                                 ${list.settleAccountTime?string("yyyy-MM-dd")}
                             </td>
-
+                            <td>${list.paymentNo!}</td>
                             <td>
-                                <#if list.remittanceState==0>未汇款</#if>
-                                <#if list.remittanceState==1>已汇款</#if>
+                                <#if list.remittanceState==0>未放款</#if>
+                                <#if list.remittanceState==1>已放款</#if>
+                                <#if list.remittanceState==2>放款失败</#if>
                             </td>
                             <td>
-                                <#if list.remittanceState==0>
+                                <#if list.remittanceState!=1>
                                     <div class="hidden-sm hidden-xs action-buttons">
                                        <a class="green" onclick="grant(${list.id})">
                                            发放

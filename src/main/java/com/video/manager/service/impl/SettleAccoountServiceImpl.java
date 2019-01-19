@@ -69,8 +69,8 @@ public class SettleAccoountServiceImpl implements SettleAccoountService {
             log.info("======>结算结果" + tSettleAccount.toString());
             settleAccountMapper.insert(tSettleAccount);
         } else {
-            result.setSettleAccountPrice(orderPrice);
-            result.setRatePrice(ratePrice);
+            result.setSettleAccountPrice(orderPrice.add(result.getSettleAccountPrice()));
+            result.setRatePrice(ratePrice.add(result.getRatePrice()));
             settleAccountMapper.updateByPrimaryKey(result);
         }
         orderMapper.updateSumOrderPriceByName(date, merchantId);
@@ -121,6 +121,7 @@ public class SettleAccoountServiceImpl implements SettleAccoountService {
         XStream xStream = new XStream();
         xStream.alias("xml", WeiXinTransfersReturn.class);
         WeiXinTransfersReturn returnInfo = (WeiXinTransfersReturn) xStream.fromXML(result);
+        returnInfo.toString();
         if ("SUCCESS".equals(returnInfo.getReturn_code()) && "SUCCESS".equals(returnInfo.getResult_code())) {
             log.info("放款成功 结算id = "+id);
             return returnInfo.getPayment_no();

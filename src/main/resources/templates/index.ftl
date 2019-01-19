@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
-<title>Dashboard - Ace Admin</title>
+<title>影盟后台管理</title>
 
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport"

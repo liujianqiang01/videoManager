@@ -20,7 +20,9 @@ public class CertUtil {
     public static SSLConnectionSocketFactory initCert() throws Exception {
         FileInputStream instream = null ;
         KeyStore keyStore = KeyStore.getInstance("PKCS12");
-        instream = new FileInputStream(new File("/Users/liujianqiang/Desktop/project/videoManager/src/main/resources/cert/apiclient_cert.p12"));
+        String cert = "/home/tomcat/apache-tomcat-8.5.37/webapps/ROOT/WEB-INF/classes/cert/apiclient_cert.p12";
+        //cert = "/Users/liujianqiang/Desktop/project/videoManager/src/main/resources/cert/apiclient_cert.p12"
+        instream = new FileInputStream(new File(cert));
         keyStore.load(instream, Configure.getMch_id().toCharArray());
 
         if (null != instream) {

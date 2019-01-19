@@ -99,7 +99,7 @@
                                 </label>
                             </th>
                             <th class="sorting_disabled" tabindex="0" rowspan="1" colspan="1" >ID</th>
-                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >用户ID</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >商户ID</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算总金额</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >提成金额</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >结算时间</th>

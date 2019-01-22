@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @ToString
@@ -41,4 +42,11 @@ public class TWholesalePrice implements Serializable {
      * 表字段 : t_wholesale_price.vip_count_end
      */
     private Integer vipCountEnd;
+
+    private Integer state;
+
+    private Date createTime;
+
+    private Date updateTime;
+
 }

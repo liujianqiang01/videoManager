@@ -6,12 +6,14 @@ import com.video.manager.model.TWholesaleOrder;
 import com.video.manager.model.mapper.ITWholesaleOrderMapper;
 import com.video.manager.service.WholesaleOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @Author: liujianqiang
  * @Date: 2019-01-21
  * @Description:
  */
+@Service
 public class WholesaleOrderServiceImpl implements WholesaleOrderService {
 
     @Autowired

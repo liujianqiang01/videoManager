@@ -43,4 +43,10 @@ public class TUser implements Serializable {
     //用户头像
     private String avatarUrl;
 
+    //申请状态
+    private Integer applyState;
+
+    //申请理由
+    private String applyReason;
+
 }

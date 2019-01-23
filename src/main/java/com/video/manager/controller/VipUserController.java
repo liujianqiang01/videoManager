@@ -3,13 +3,12 @@ package com.video.manager.controller;
 import com.github.pagehelper.PageInfo;
 import com.video.manager.model.BasePage;
 import com.video.manager.model.TUser;
+import com.video.manager.model.WebResult;
 import com.video.manager.service.VipUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: liujianqiang
@@ -28,5 +27,12 @@ public class VipUserController {
         PageInfo<TUser> orderPageInfo = vipUserService.getVipUser(user,page,pageSize);
         BasePage.page(orderPageInfo,map);
         return "/vipUser/index";
+    }
+
+    @PostMapping("pass")
+    @ResponseBody
+    public WebResult pass(Integer id){
+        vipUserService.pass(id);
+        return WebResult.success();
     }
 }

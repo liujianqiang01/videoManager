@@ -11,4 +11,5 @@ import com.video.manager.model.TUser;
 public interface VipUserService {
     PageInfo<TUser> getVipUser(TUser user, int page, int pageSize);
 
+    void pass(Integer id);
 }

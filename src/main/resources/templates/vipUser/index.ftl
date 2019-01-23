@@ -82,6 +82,11 @@
                                         <option <#if (vipState!2)==0>selected</#if> value="0">普通用户</option>
                                         <option <#if (vipState!2)==1>selected</#if> value="1">商户</option>
                                     </select></label>
+                                <label>审核状态: <select name="applyState" >
+                                        <option <#if (applyState!0)==0>selected</#if> value="">全部</option>
+                                        <option <#if (applyState!0)==1>selected</#if> value="1">审核中</option>
+                                        <option <#if (applyState!0)==2>selected</#if> value="2">审核通过</option>
+                                    </select></label>
                             </div>
                         </div>
                         <div>
@@ -91,7 +96,7 @@
                         </div>
                     </div>
                     </form>
-                    <table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer" aria-describedby="dynamic-table_info">
+                    <table id="" class="table table-striped table-bordered table-hover dataTable no-footer" aria-describedby="dynamic-table_info">
                         <thead>
                         <tr role="row">
                             <th class="center sorting_disabled" rowspan="1" colspan="1" aria-label="">
@@ -107,6 +112,9 @@
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >电话</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >商户Id</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >用户头像</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >申请状态</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >申请理由</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >操作</th>
                         </tr>
                         </thead>
 
@@ -135,8 +143,20 @@
                             </td>
                             <td>${list.phone!}</td>
                             <td>${list.menchantId!}</td>
-                            <td> <img class="nav-user-photo" src="${list.avatarUrl!}" style="width: 50px;"></td>
+                            <td> <img class="nav-user-photo" src="${list.avatarUrl!}" style="width: 30px;"></td>
+                            <td>
+                                <#if (list.applyState!0)==0></#if>
+                                <#if (list.applyState!0)==1>审核</#if>
+                                <#if (list.applyState!0)==2>审核通过</#if>
+                            </td>
+                            <td>${list.applyReason!}</td>
+                            <td>
+                                <#if (list.applyState!0)==1> <a class="green" onclick="pass(${list.userId?c})">
+                                        <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                    通过
+                                    </a></#if>
 
+                            </td>
                         </tr>
                         </#list>
 
@@ -223,6 +243,26 @@
     function query() {
         $("#vipUserForm").submit();
     }
+    function pass(id) {
+        quickAjax({
+            url: '/admin/vipUser/pass',
+            method:"POST",
+            data:{
+                id:id
+            },
+            success: function (response) {
+                if (response.code == 1){
+                    alert("审核成功",function(){
+                        location.reload();
+                    });
+
+                }
+            },
+            error: function (response) {
+                alert("链接服务器失败");
+            }
+        });
+    };
 </script>
 </body>
 </html>

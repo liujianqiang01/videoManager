@@ -78,6 +78,5 @@ public class SecurityAspect {
                 return WebResult.noAuthority();
             }
         }
-
     }
 }

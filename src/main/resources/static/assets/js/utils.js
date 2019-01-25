@@ -11,7 +11,7 @@ function vali(obj){
 
 window.quickAjax = function(opt){
     var STATE = opt.STATE,//---[Obj]need
-        //url = "https://filmunion.com.cn"+opt.url,//---[String]need
+       // url = "https://filmunion.com.cn"+opt.url,//---[String]need
         //url = "https://test.filmunion.com.cn"+opt.url,//---[String]need
         url = "http://localhost:8081"+opt.url,//---[String]need
         toofast = opt.toofast||false,//---[String]optional

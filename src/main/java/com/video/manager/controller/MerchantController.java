@@ -58,4 +58,23 @@ public class MerchantController {
         merchantService.pass(id);
         return WebResult.success();
     }
+
+    /**
+     * 进入编辑页面
+     * @return
+     */
+    @RequestMapping(value = "edit",method = RequestMethod.GET)
+    public String edit(Integer id, ModelMap map){
+        map.put("id",id);
+        return "/merchant/edit";
+    }
+    @PostMapping("saveEdit")
+    @ResponseBody
+    public WebResult saveEdit(TMerchant merchant){
+      if(merchant != null && merchant.getId() != null && merchant.getRate() != null) {
+          merchantService.update(merchant);
+      }
+        return WebResult.success();
+    }
+
 }

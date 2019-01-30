@@ -104,6 +104,7 @@
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >商户地址</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >商户电话</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >分成比例</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >操作</th>
                         </tr>
                         </thead>
 
@@ -125,6 +126,12 @@
                             <td>${list.menchantAddr!}</td>
                             <td>${list.mobile!}</td>
                             <td>${list.rate!}</td>
+                            <td>
+                               <a href="/admin/merchant/edit?id=${list.id?c}"  class="green">
+                                        <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                        修改分成
+                                </a>
+                            </td>
                         </tr>
                         </#list>
 

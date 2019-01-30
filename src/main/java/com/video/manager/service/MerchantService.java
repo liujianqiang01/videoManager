@@ -17,4 +17,5 @@ public interface MerchantService {
     void addMerchant(TMerchant merchant);
     PageInfo<TMerchantPrice> getMerchantPrice(TMerchantPrice merchantPrice, int page, int pageSize);
     void pass(Integer id);
+    void update(TMerchant merchant);
 }

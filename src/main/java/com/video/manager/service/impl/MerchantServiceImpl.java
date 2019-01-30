@@ -56,8 +56,21 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
+    public void update(TMerchant merchant) {
+        TMerchant param = new TMerchant();
+        param.setId(merchant.getId());
+        TMerchant result = merchantMapper.selectOne(param);
+        if(result != null) {
+            result.setRate(merchant.getRate());
+            merchantMapper.updateByPrimaryKey(result);
+        }
+    }
+
+    @Override
     public PageInfo<TMerchantPrice> getMerchantPrice(TMerchantPrice merchantPrice, int page, int pageSize) {
         PageInfo<TMerchantPrice> orderPageInfo = PageHelper.startPage(page, pageSize).setOrderBy("id desc").doSelectPageInfo(() -> merchantPriceMapper.select(merchantPrice));
         return orderPageInfo;
     }
+
+
 }

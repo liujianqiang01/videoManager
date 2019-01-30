@@ -151,10 +151,15 @@
                             </td>
                             <td>${list.applyReason!}</td>
                             <td>
-                                <#if (list.applyState!0)==1> <a class="green" onclick="pass(${list.userId?c})">
+                                <#if (list.applyState!0)==1> <a class="green" onclick="pass(${list.userId?c},2)">
                                         <i class="ace-icon fa fa-pencil bigger-130"></i>
                                     通过
-                                    </a></#if>
+                                    </a>
+                                    <#--<a class="green" onclick="pass(${list.userId?c},3)">-->
+                                        <#--<i class="ace-icon fa fa-pencil bigger-130"></i>-->
+                                        <#--拒绝-->
+                                    <#--</a>-->
+                                </#if>
 
                             </td>
                         </tr>
@@ -243,12 +248,13 @@
     function query() {
         $("#vipUserForm").submit();
     }
-    function pass(id) {
+    function pass(id,applyState) {
         quickAjax({
             url: '/admin/vipUser/pass',
             method:"POST",
             data:{
                 id:id
+                applyState : applyState
             },
             success: function (response) {
                 if (response.code == 1){

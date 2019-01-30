@@ -42,16 +42,21 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Transactional
     @Override
-    public void pass(Integer id) {
+    public void pass(Integer id,Integer state) {
         TMerchantPrice tMerchantPrice = merchantPriceMapper.selectByPrimaryKey(id);
         if(tMerchantPrice != null ){
-            //将之前的失效
-            TMerchantPrice param = new TMerchantPrice();
-            param.setMerchanId(tMerchantPrice.getMerchanId());
-            param.setState(2);
-            merchantPriceMapper.updateState(param);
-            tMerchantPrice.setState(1);
-            merchantPriceMapper.updateByPrimaryKey(tMerchantPrice);
+            if(state ==1 ) {//通过
+                //将之前的失效
+                TMerchantPrice param = new TMerchantPrice();
+                param.setMerchanId(tMerchantPrice.getMerchanId());
+                param.setState(2);
+                merchantPriceMapper.updateState(param);
+                tMerchantPrice.setState(1);
+                merchantPriceMapper.updateByPrimaryKey(tMerchantPrice);
+            }else if(state ==2){//拒绝
+                tMerchantPrice.setState(2);
+                merchantPriceMapper.updateByPrimaryKey(tMerchantPrice);
+            }
         }
     }
 

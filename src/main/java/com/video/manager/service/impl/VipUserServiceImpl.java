@@ -32,7 +32,7 @@ public class VipUserServiceImpl implements VipUserService {
 
     @Override
     @Transactional
-    public void pass(Integer id) {
+    public void pass(Integer id,Integer applyState) {
         TUser tUser = userMapper.selectByPrimaryKey(id);
         if(tUser != null){
             TUser param = new TUser();

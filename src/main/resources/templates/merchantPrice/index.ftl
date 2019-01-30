@@ -132,10 +132,15 @@
                                     <#if (list.state!5)==2>失效</#if>
                                 </td>
                                 <td>
-                                    <#if (list.state!5)==0> <a class="green" onclick="pass(${list.id?c})">
+                                    <#if (list.state!5)==0> <a class="green" onclick="pass(${list.id?c},1)">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                                             通过
-                                        </a></#if>
+                                        </a>
+                                        <a class="red" onclick="pass(${list.id?c},2)">
+                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                            拒绝
+                                        </a>
+                                    </#if>
 
                                 </td>
                             </tr>
@@ -224,12 +229,13 @@
     function query() {
         $("#applyPriceForm").submit();
     }
-    function pass(id) {
+    function pass(id,state) {
         quickAjax({
             url: '/admin/merchant/pass',
             method:"POST",
             data:{
-                id:id
+                id:id,
+                state : state
             },
             success: function (response) {
                 if (response.code == 1){

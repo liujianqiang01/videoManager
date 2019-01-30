@@ -54,8 +54,8 @@ public class MerchantController {
     }
     @PostMapping("pass")
     @ResponseBody
-    public WebResult pass(Integer id){
-        merchantService.pass(id);
+    public WebResult pass(Integer id,Integer state){
+        merchantService.pass(id,state);
         return WebResult.success();
     }
 

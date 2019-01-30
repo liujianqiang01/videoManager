@@ -31,8 +31,8 @@ public class VipUserController {
 
     @PostMapping("pass")
     @ResponseBody
-    public WebResult pass(Integer id){
-        vipUserService.pass(id);
+    public WebResult pass(Integer id,Integer applyState){
+        vipUserService.pass(id,applyState);
         return WebResult.success();
     }
 }

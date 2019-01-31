@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface ITMerchantMapper extends Mapper<TMerchant> {
 
-    @Select({"select menchant_id as menchantId ,state from t_merchant where  state = 0 ORDER BY id limit 1 "})
+    @Select({"select id, menchant_id as menchantId ,state from t_merchant where  state = 0 ORDER BY id limit 1 "})
     TMerchant selectRandomOne();
 }

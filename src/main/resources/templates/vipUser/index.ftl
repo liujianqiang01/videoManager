@@ -253,7 +253,7 @@
             url: '/admin/vipUser/pass',
             method:"POST",
             data:{
-                id:id
+                id:id,
                 applyState : applyState
             },
             success: function (response) {

@@ -50,8 +50,9 @@ public class VipUserServiceImpl implements VipUserService {
                     newUser.setMenchantId(merchant.getMenchantId());
                     userMapper.updateApplyState(user.getUserId());
                     userMapper.insert(newUser);
+                    merchant.setState(1);
+                    merchantMapper.updateByPrimaryKeySelective(merchant);
                 }
-
             }
         }
     }

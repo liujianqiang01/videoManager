@@ -41,8 +41,7 @@
     <script src="/assets/js/html5shiv.min.js"></script>
     <script src="/assets/js/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="/assets/css/fileinput.min.css" />
-    <script src="/assets/js/fileinput.min.js"></script>
+
 </head>
 
 <body class="no-skin">
@@ -67,7 +66,7 @@
                 <div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline no-footer">
                     <form method="get" action="/admin/vipCodes" id="vipCodesForm">
                     <div class="row">
-                        <div class="col-xs-7">
+                        <div class="col-xs-9">
                             <div class="dataTables_length" id="dynamic-table_length">
                                 <label>每页显示 <select name="pageSize" aria-controls="dynamic-table" class="form-control input-sm">
                                     <option <#if pageSize==10>selected</#if>  value="10">10</option>
@@ -76,6 +75,8 @@
                                     <option <#if pageSize==100>selected</#if> value="100">100</option></select> 条</label>
                                  <label>vip编码:
                                     <input type="search" name="vipCode" value="${vipCode!}" class="form-control input-sm" placeholder="" aria-controls="dynamic-table"></label>
+                                <label>商户号:
+                                    <input type="search" name="merchantId" id="merchantId" value="${merchantId!}" class="form-control input-sm" placeholder="" aria-controls="dynamic-table"></label>
                                 <label>vip类型: <select name="vipType" ">
                                     <option <#if (vipType!0)==0>selected</#if> value="">全部</option>
                                     <option <#if (vipType!0)==1>selected</#if> value="1">月卡</option>
@@ -89,13 +90,12 @@
                             </div>
                         </div>
                         <div>
-                            <button class="btn btn-white btn-info btn-bold" onclick="query()">
-                                查询
-                            </button>
+                            <button class="btn btn-white btn-info btn-bold" onclick="query();" >查询</button>
+
                         </div>
                     </div>
                     </form>
-
+                    <button class="btn btn-white" onclick="exportCodes();"  style="position: fixed; top: 9%;left: 80%;"> 导出</button>
                     <table id="dynamic-table" class="table table-striped table-bordered table-hover dataTable no-footer" aria-describedby="dynamic-table_info">
                         <thead>
                         <tr role="row">
@@ -107,6 +107,7 @@
                             </th>
                             <th class="sorting_disabled" tabindex="0" rowspan="1" colspan="1" >ID</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >vip编码</th>
+                            <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >商户号</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >vip类型</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >有效期</th>
                             <th class="sorting_disabled" tabindex="0"  rowspan="1" colspan="1" >状态</th>
@@ -127,6 +128,8 @@
                                 <a href="#">${list.id}</a>
                             </td>
                             <td>${list.vipCode!}</td>
+
+                            <td>${list.merchantId!}</td>
                             <td>
                                 <#if list.vipType==1>月卡</#if>
                                 <#if list.vipType==2>季卡</#if>
@@ -207,7 +210,7 @@
         $("select[name=pageSize]").change(function () {
             $("#vipCodesForm").submit();
         });
-        
+
         $("input[name=checkbox]").change(function () {
             var isAll = true;
             $("input[name=checkbox]").each(function () {
@@ -221,9 +224,7 @@
                 $("#check_all").prop('checked', true);
             }
         });
-        new page({pageMain:"pagination",nowPage:${page!'1'},count:${count},pageSize:${pageSize!'10'},
-            url:"/admin/vipCodes",params:"?pageSize=${pageSize}",pakey:"page"});
-
+        new page({pageMain:"pagination",nowPage:${page!'1'},count:${count?c},pageSize:${pageSize!'10'},url:"/admin/vipCodes",params:"?pageSize=${pageSize}",pakey:"page"});
     });
 
     function query() {
@@ -233,6 +234,30 @@
     function upload() {
         $("#uploadVipCodesForm").submit();
     }
+
+    function exportCodes() {
+        if(!vali($("#merchantId"))){
+            alert("请输入商户号");
+            return ;
+        }
+       var merchantId =  $("#merchantId").val();
+        window.location.href = "/admin/vipCodes/export?merchantId="+merchantId;
+        /*$.ajax({
+            url: '/admin/vipCodes/export',
+            method:"POST",
+
+            data:{
+                merchantId:$("#merchantId").val()
+            },
+            success: function (response) {
+                alert("导出成功")
+            },
+            error: function (response) {
+                alert("链接服务器失败");
+            }
+        });*/
+    };
+
 </script>
 </body>
 </html>

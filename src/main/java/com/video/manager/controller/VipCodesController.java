@@ -1,13 +1,14 @@
 package com.video.manager.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.video.manager.model.BasePage;
-import com.video.manager.model.TMerchant;
-import com.video.manager.model.TVipCodes;
+import com.video.manager.model.*;
 import com.video.manager.service.MerchantService;
 import com.video.manager.service.VipCodesService;
+import com.video.manager.utils.DateUtils;
+import com.video.manager.utils.ExcelUtil;
 import com.video.manager.utils.StringUtils;
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -17,15 +18,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: liujianqiang
@@ -154,5 +156,39 @@ public class VipCodesController {
             log.error("导入商户号失败 merchantId = "+merchantId,e);
         }
 
+    }
+    @GetMapping(value = "export")
+    @ResponseBody
+    public WebResult export(TVipCodes tVipCodes, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if(StringUtils.isEmpty(tVipCodes.getMerchantId())){
+            return WebResult.needParams("商户号不能为空");
+        }
+        String fileName = String.valueOf(System.currentTimeMillis());
+        List<String[]> listStr = new ArrayList<>();
+        String[] strArray;
+        tVipCodes.setVipState(0);
+        PageInfo<TVipCodes> vipCodes = vipCodesService.getVipCodes(tVipCodes, 0, 100000);
+        for(TVipCodes codes : vipCodes.getList()){
+            strArray = new String[3];
+            strArray[0] = codes.getVipCode();
+            if(codes.getExportDate() != null){
+                strArray[1] = DateFormatUtils.format(codes.getExportDate(),"yyyy-MM-dd");
+            }else {
+                strArray[1] = "";
+            }
+            String typeName = "";
+            if(codes.getVipType() == 1){
+                typeName = "月卡";
+            }else if(codes.getVipType() == 2){
+                typeName = "季卡";
+            }else {
+                typeName = "年卡";
+            }
+            strArray[2] = typeName;
+            listStr.add(strArray);
+        }
+        String[] titles ={"会员卡"};
+        ExcelUtil.generateExcel(response,fileName,titles,listStr);
+        return WebResult.success();
     }
 }

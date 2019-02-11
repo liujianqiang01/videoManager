@@ -215,7 +215,7 @@
                 $("#check_all").prop('checked', true);
             }
         });
-        new page({pageMain:"pagination",nowPage:${page!'1'},count:${count},pageSize:${pageSize!'10'},
+        new page({pageMain:"pagination",nowPage:${page!'1'},count:${count?c},pageSize:${pageSize!'10'},
             url:"/admin/wholesaleOrder",params:"?pageSize=${pageSize}&orderState=${orderState!}",pakey:"page"});
 
     });

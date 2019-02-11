@@ -1,12 +1,14 @@
 package com.video.manager.utils;
 
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFPrintSetup;
 import org.apache.poi.hssf.usermodel.HeaderFooter;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Author: liujianqiang
@@ -15,18 +17,17 @@ import java.io.IOException;
  */
 public class ExcelUtil {
 
-    public static void generateExcel(HttpServletResponse response, String fileName) throws IOException {
+    public static void generateExcel(HttpServletResponse response, String fileName, String[]  title, List<String[]> listStr) throws IOException {
         //创建工作薄
         XSSFWorkbook workbook = new XSSFWorkbook();
         //创建表单
-        XSSFSheet sheet = genSheet(workbook, "testExcel");
+        XSSFSheet sheet = genSheet(workbook, title[0]);
         //创建表单样式
         XSSFCellStyle titleStyle = genTitleStyle(workbook);//创建标题样式
         XSSFCellStyle contextStyle = genContextStyle(workbook);//创建文本样式
 
         //创建Excel
-        genExcel(sheet, titleStyle, contextStyle);
-
+        genExcel(sheet, titleStyle, contextStyle,title,listStr);
 
         //准备将Excel的输出流通过response输出到页面下载
         //八进制输出流
@@ -43,66 +44,26 @@ public class ExcelUtil {
         //文本文件输出流，释放资源
     }
 
-    public static void genExcel(XSSFSheet sheet,XSSFCellStyle titleStyle,XSSFCellStyle contextStyle) {
-
-        //根据Excel列名长度，指定列名宽度  Excel总共10列
-        for (int i = 0; i < 10; i++) {
-            if (i == 0) {
-                sheet.setColumnWidth(i, 1500);
-            } else if (i == 2 || i == 3 || i == 4) {
-                sheet.setColumnWidth(i, 4000);
-            } else if (i == 9) {
-                sheet.setColumnWidth(i, 3000);
-            } else {
-                sheet.setColumnWidth(i, 2000);
-            }
-        }
-
+    public static void genExcel(XSSFSheet sheet, XSSFCellStyle titleStyle, XSSFCellStyle contextStyle, String[] title, List<String[]> listStr) {
         //设置标题位置
         sheet.addMergedRegion(new CellRangeAddress(
                 0, //first row
                 0, //last row
                 0, //first column
-                9 //last column
+                2 //last column
         ));
 
         XSSFRow row = sheet.createRow(0);//创建第一行，为标题，index从0开始
         XSSFCell cell;
         cell = row.createCell(0);//创建一列
-        cell.setCellValue("xxx 幼儿园一年级二班学生信息");//标题
+        cell.setCellValue("会员卡");//标题
         cell.setCellStyle(titleStyle);//设置标题样式
-
-        row = sheet.createRow(1);//创建第二行
-        cell = row.createCell(0);//创建第二行第一列
-        cell.setCellValue("姓名");//第二行第一列内容
-        cell.setCellStyle(contextStyle);//设置样式
-        cell = row.createCell(1);//2 row 1 column
-        cell.setCellValue("性别");
-        cell.setCellStyle(contextStyle);
-        cell = row.createCell(2);//2 row 2 column
-        cell.setCellValue("学号");
-        cell.setCellStyle(contextStyle);
-        cell = row.createCell(3);//2 row 3 column
-        cell.setCellValue("出生年月");
-        cell.setCellStyle(contextStyle);
-        cell = row.createCell(4);//2 row 4 column
-        cell.setCellValue("家庭住址");
-        cell.setCellStyle(contextStyle);
-        cell = row.createCell(5);//2 row 5 column
-        cell.setCellValue("语文");
-        cell.setCellStyle(contextStyle);
-        cell = row.createCell(6);//2 row 6 column
-        cell.setCellValue("英语");
-        cell.setCellStyle(contextStyle);
-        cell = row.createCell(7);//2 row 7 column
-        cell.setCellValue("数学");
-        cell.setCellStyle(contextStyle);
-        cell = row.createCell(8);//2 row 8 column
-        cell.setCellValue("自然");
-        cell.setCellStyle(contextStyle);
-        cell = row.createCell(9);//2 row 9 column
-        cell.setCellValue("科学");
-        cell.setCellStyle(contextStyle);
+        row = sheet.createRow(1);//创建副标题
+        for(int i = 0; i<title.length ;i++) {
+            cell = row.createCell(i);//创建列
+            cell.setCellValue(title[i]);//
+            cell.setCellStyle(contextStyle);//设置样式
+        }
 
 		/*
 			实际填充数据的时候，对可能为空的数据要进行处理，要先进行判断，否则报错
@@ -114,39 +75,15 @@ public class ExcelUtil {
 			}
 		*/
         //从数据库取数据填充到Excel，这步省略，添加模拟数据
-        for(int i = 2 ; i<15;i++){//i从2开始计数，因为上面已经创建了 0 1行
-            row=sheet.createRow(i);//创建第三行
-            cell=row.createCell(0);//创建第三行第一列
-            cell.setCellValue("小明");//第三行第一列的值
-            cell.setCellStyle(contextStyle);//设置样式
-            cell=row.createCell(1);//2 row 1 column
-            cell.setCellValue("男");
-            cell.setCellStyle(contextStyle);
-            cell=row.createCell(2);//2 row 2 column
-            cell.setCellValue("NO20180901"+i);
-            cell.setCellStyle(contextStyle);
-            cell=row.createCell(3);//2 row 3 column
-            cell.setCellValue("2000/02/01");
-            cell.setCellStyle(contextStyle);
-            cell=row.createCell(4);//2 row 4 column
-            cell.setCellValue("成都市天府广场");
-            cell.setCellStyle(contextStyle);
-            cell=row.createCell(5);//2 row 5 column
-            cell.setCellValue("90");
-            cell.setCellStyle(contextStyle);
-            cell=row.createCell(6);//2 row 6 column
-            cell.setCellValue("90");
-            cell.setCellStyle(contextStyle);
-            cell=row.createCell(7);//2 row 7 column
-            cell.setCellValue("90");
-            cell.setCellStyle(contextStyle);
-            cell=row.createCell(8);//2 row 8 column
-            cell.setCellValue("98");
-            cell.setCellStyle(contextStyle);
-            cell=row.createCell(9);//2 row 9 column
-            cell.setCellValue("100");
-            cell.setCellStyle(contextStyle);
-        }
+        for(int i = 0 ; i<listStr.size();i++){//i从2开始计数，因为上面已经创建了 0 1行
+            row = sheet.createRow(i+2);//创建行
+            String[] strings = listStr.get(i);
+            for(int j = 0; j<strings.length;j++) {
+                cell = row.createCell(j);//创建列
+                cell.setCellValue(strings[j]);//
+                cell.setCellStyle(contextStyle);//设置样式
+            }
+            }
     }
 
     //设置表单，并生成表单

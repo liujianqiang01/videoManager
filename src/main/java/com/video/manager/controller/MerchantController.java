@@ -34,16 +34,16 @@ public class MerchantController {
         return "/merchant/index";
     }
 
-    /**
-     * Excel表格导出接口
-     * @param response response对象
-     * @throws IOException 抛IO异常
-     */
-    @GetMapping("excelDownload")
-    public void excelDownload(HttpServletResponse response) throws IOException {
-        String fileName = "ExcelTest";
-        ExcelUtil.generateExcel(response,fileName);
-    }
+//    /**
+//     * Excel表格导出接口
+//     * @param response response对象
+//     * @throws IOException 抛IO异常
+//     */
+//    @GetMapping("excelDownload")
+//    public void excelDownload(HttpServletResponse response) throws IOException {
+//        String fileName = "ExcelTest";
+//        ExcelUtil.generateExcel(response,fileName);
+//    }
     @GetMapping("applyPrice")
     public String applyPrice(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10")int pageSize,
                              TMerchantPrice tMerchantPrice, ModelMap map){

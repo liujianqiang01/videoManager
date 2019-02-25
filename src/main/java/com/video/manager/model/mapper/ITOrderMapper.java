@@ -18,6 +18,4 @@ public interface ITOrderMapper extends Mapper<TOrder> {
             "and vip_start_time < #{date} and settle_account_state = 0"})
     void updateSumOrderPriceByName(@Param("date") Date date , @Param("merchantId") String merchantId);
 
-
-
 }

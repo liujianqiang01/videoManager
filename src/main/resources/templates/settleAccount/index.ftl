@@ -223,7 +223,7 @@
             }
         });
         new page({pageMain:"pagination",nowPage:${page!'1'},count:${count?c},pageSize:${pageSize!'10'},
-            url:"/admin/settleAccountform",params:"?pageSize=${pageSize}",pakey:"page"});
+            url:"/admin/settleAccount",params:"?pageSize=${pageSize}",pakey:"page"});
 
     });
 

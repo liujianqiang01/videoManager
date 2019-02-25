@@ -140,7 +140,6 @@ public class VipCodesController {
         }catch (Exception e){
             log.error("导入会员卡失败 vipCode = "+vipCode,e);
         }
-
     }
 
     /**

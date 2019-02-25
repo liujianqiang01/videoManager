@@ -86,7 +86,6 @@ public class SettleAccoountServiceImpl implements SettleAccoountService {
         if (tSettleAccount != null) {
             tSettleAccount.setRemittanceState(1);
             settleAccountMapper.updateByPrimaryKey(tSettleAccount);
-
             //微信放款
 //            String paymentNo = weiXinTransfers(id);
 //            if(!StringUtils.isEmpty(paymentNo)) {

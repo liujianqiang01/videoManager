@@ -4,15 +4,15 @@ public class Configure {
 	private static String key = "TgyJpbqnUn45aLizzgdAJsaMyyRiHqfH";
 
 	//小程序ID	
-	private static String appID = "wx4ff803a9d7c7f8ff12";
+	private static String appID = "12wx4ff803a9d7c7f8ff12";
 	//商户号
-	private static String mch_id = "151980031112";
+	private static String mch_id = "12151980031112";
 	//
-	private static String secret = "d48f8005f7ab92421b8ee9b8604dbc7512";
+	private static String secret = "12d48f8005f7ab92421b8ee9b8604dbc7512";
 
 	private static String spbill_create_ip = "47.105.90.172";
 
-	private static String mch_appid = "ww4ca72a98aa7c8bfd12";//商户账号appid
+	private static String mch_appid = "12ww4ca72a98aa7c8bfd12";//商户账号appid
 
 	public static String getMch_appid() {
 		return mch_appid;
